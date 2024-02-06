@@ -1,45 +1,37 @@
-// Gerando assentos
-const assentosTotais = 68;
-const assentos = new Array(assentosTotais).fill(null);
-
-// LocalStorage
-const assentosSalvos = JSON.parse(localStorage.getItem('assentos'));
-if (assentosSalvos) {
-    assentos = assentosSalvos;
-    exibirListagemAssentos();
+let participantes=[]
+let value= Number
+let nome
+let num= Number
+//contador
+for(let i=0 ; i<100; i++){
+    participantes[i]= "Numero vago"
 }
 
-// Função de escolher assento
-function atribuirAssento() {
-    const nomePassageiro = document.getElementById('nomePassageiro').value;
+document.getElementById("inputForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Evita o refresh da página
+    document.getElementById("error").innerHTML = "";
 
-    // Procurar por assento vago
-    const assentoDisponivel = assentos.findIndex(assento => assento === null);
-
-    if (assentoDisponivel !== -1) {
-        // Atribuir assento
-        assentos[assentoDisponivel] = nomePassageiro;
-
-        // Salvar no LocalStorage
-        localStorage.setItem('assentos', JSON.stringify(assentos));
-
-        // Exibir listagem atualizada
-        exibirListagemAssentos();
-
-        alert(`Assento atribuído com sucesso! Assento: ${assentoDisponivel + 1}`);
-    } else {
-        alert('Não há assentos disponíveis.');
+    num = document.getElementById("valueInput").value;
+    nome = document.getElementById("nameInput").value;
+    if(num>=100){
+        document.getElementById("error").innerHTML= "Número inválido."
     }
-}
+    if(participantes[num]=="Numero vago"){
+         participantes[num]= nome
 
-// Função de listagem de assentos
-function exibirListagemAssentos() {
-    const listaAssentosElement = document.getElementById('listaAssentos');
-    listaAssentosElement.innerHTML = '';
+      }else if(participantes[num] !="Numero vago" && num<100){
+        document.getElementById("error").innerHTML = "O número escolhido já foi utilizado, escolha outro número."
+      }
 
-    for (let i = 0; i < assentosTotais; i++) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `Assento ${i + 1}: ${assentos[i] ? assentos[i] : 'Vazio'}`;
-        listaAssentosElement.appendChild(listItem);
+    // Limpa os campos
+    document.getElementById("nameInput").value = "";
+    document.getElementById("valueInput").value = "";
+    
+});
+
+function ganhador(){
+    //campeão
+    let numSorteado=prompt(`Digite abaixo o numero sorteado`)
+    document.getElementById("vencedor").innerHTML= "N°" + numSorteado +" - " + participantes[numSorteado]
     }
-}
+    console.log(participantes)
